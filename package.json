@@ -10,7 +10,7 @@
     "build:turbo": "turbo run build"
   },
   "dependencies": {
-    "@sentry/nextjs": "^8.47.0",
+    "@sentry/nextjs": "^8.48.0",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"

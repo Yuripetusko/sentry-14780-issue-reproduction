@@ -2,8 +2,19 @@
 
 import Head from "next/head";
 import * as Sentry from "@sentry/nextjs";
+import { runModule2 } from "@/lib/module2";
 
 export default function Page() {
+
+  const throwCustomError = () => {
+    try {
+      runModule2()
+    } catch (error) {
+      console.error(error)
+      Sentry.captureException(error)
+    }
+  }
+
   return (
     <div>
       <Head>
@@ -48,17 +59,7 @@ export default function Page() {
             fontSize: "14px",
             margin: "18px",
           }}
-          onClick={async () => {
-            await Sentry.startSpan({
-              name: 'Example Frontend Span',
-              op: 'test'
-            }, async () => {
-              const res = await fetch("/api/sentry-example-api");
-              if (!res.ok) {
-                throw new Error("Sentry Example Frontend Error");
-              }
-            });
-          }}
+          onClick={throwCustomError}
         >
           Throw error!
         </button>
